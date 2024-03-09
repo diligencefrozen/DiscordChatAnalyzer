@@ -19,7 +19,7 @@ The DiscordUserRankingChecker project is a program <br/>that attempts data analy
 3. Click on 'Upload CSV File' to choose an CSV file.
 
 ## Refer to
-This project cited copyrighted <a href="https://www.freepik.com/free-vector/shiny-golden-number-one-winner-symbol-with-laurel-design-vector_59532937.htm#query=top%201&position=15&from_view=keyword&track=ais&uuid=6996fd75-f789-4e0a-bd84-a1ad9e9b5cab">image files.</a><br/>
+This project used copyrighted <a href="https://www.freepik.com/free-vector/shiny-golden-number-one-winner-symbol-with-laurel-design-vector_59532937.htm#query=top%201&position=15&from_view=keyword&track=ais&uuid=6996fd75-f789-4e0a-bd84-a1ad9e9b5cab">image files.</a><br/>
 
 ## Contributing
 Contributions, issues, and feature requests are welcome. Feel free to check [issues page](https://github.com/diligencefrozen/DiscordUserRankingChecker/issues) if you want to contribute.
