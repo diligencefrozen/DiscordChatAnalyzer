@@ -10,11 +10,9 @@ def upload_and_analyze():
         message_counts = df.groupby('Author')['Content'].count().reset_index(name='Messages')
         ranked_authors = message_counts.sort_values(by='Messages', ascending=False).reset_index(drop=True)
         
-        # Clear the Treeview
         for i in tree.get_children():
             tree.delete(i)
         
-        # Add results to the Treeview
         for index, row in ranked_authors.iterrows():
             tree.insert("", tk.END, values=(index + 1, row['Author'], row['Messages']))
 
@@ -25,36 +23,28 @@ def draw_stars(canvas, number_of_stars):
         size = random.randint(1, 3)
         canvas.create_oval(x1, y1, x1 + size, y1 + size, fill="white")
 
-# Tkinter window creation
 root = tk.Tk()
 root.title("Discord Chat Analyzer")
 root.geometry("800x600")
 
-# Tab control creation
 tab_control = ttk.Notebook(root)
 
-# Main tab creation
 main_tab = ttk.Frame(tab_control)
 tab_control.add(main_tab, text='Main')
 
-# User Ranking tab creation
 ranking_tab = ttk.Frame(tab_control)
 tab_control.add(ranking_tab, text='User Ranking')
 
-# Main tab content update with new greeting
 main_label = tk.Label(main_tab, text="Hello, here you can try magical data analysis!", padx=20, pady=20)
 main_label.pack()
 
-# Magic-themed dot art on the main tab
 canvas = tk.Canvas(main_tab, width=200, height=100, bg="black")
 canvas.pack()
-draw_stars(canvas, 50)  # Draw 50 stars
+draw_stars(canvas, 50)  
 
-# User Ranking tab content
 upload_button = tk.Button(ranking_tab, text="Upload CSV File", command=upload_and_analyze)
 upload_button.pack(pady=10)
 
-# Treeview setup
 columns = ('#1', '#2', '#3')
 tree = ttk.Treeview(ranking_tab, columns=columns, show='headings')
 tree.heading('#1', text='Rank')
@@ -65,7 +55,6 @@ tree.column('#2', anchor=tk.W, width=250)
 tree.column('#3', anchor=tk.CENTER, width=100)
 tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
-# Place tab control in the main window
 tab_control.pack(expand=1, fill="both")
 
 # Run the UI
