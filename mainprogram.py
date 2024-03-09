@@ -26,6 +26,7 @@ def draw_stars(canvas, number_of_stars):
 root = tk.Tk()
 root.title("Discord User Ranking Checker")
 root.geometry("800x600")
+root.iconbitmap('icofile.ico')
 
 tab_control = ttk.Notebook(root)
 
@@ -35,7 +36,7 @@ tab_control.add(main_tab, text='Main')
 ranking_tab = ttk.Frame(tab_control)
 tab_control.add(ranking_tab, text='User Ranking')
 
-main_label = tk.Label(main_tab, text="Here, you can see the rankings of the users who have posted the most chats in the Discord server.", padx=20, pady=20)
+main_label = tk.Label(main_tab, text="Give magical data analysis a try here! Based on users' chat histories, we'll rank them for you!", padx=20, pady=20)
 main_label.pack()
 
 canvas = tk.Canvas(main_tab, width=200, height=100, bg="black")
