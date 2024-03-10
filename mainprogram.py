@@ -8,14 +8,25 @@ def upload_and_analyze():
     file_path = filedialog.askopenfilename()
     if file_path:
         df = pd.read_csv(file_path)
+        # User Ranking
         message_counts = df.groupby('Author')['Content'].count().reset_index(name='Messages')
         ranked_authors = message_counts.sort_values(by='Messages', ascending=False).reset_index(drop=True)
         
-        for i in tree.get_children():
-            tree.delete(i)
+        for i in user_tree.get_children():
+            user_tree.delete(i)
         
         for index, row in ranked_authors.iterrows():
-            tree.insert("", tk.END, values=(index + 1, row['Author'], row['Messages']))
+            user_tree.insert("", tk.END, values=(index + 1, row['Author'], row['Messages']))
+        
+        # Date Ranking
+        date_counts = df.groupby('Date')['Content'].count().reset_index(name='Messages')
+        ranked_dates = date_counts.sort_values(by='Messages', ascending=False).reset_index(drop=True)
+        
+        for i in date_tree.get_children():
+            date_tree.delete(i)
+        
+        for index, row in ranked_dates.iterrows():
+            date_tree.insert("", tk.END, values=(index + 1, row['Date'], row['Messages']))
 
 def draw_stars(canvas, number_of_stars):
     for _ in range(number_of_stars):
@@ -37,34 +48,47 @@ root.iconbitmap('icofile.ico')
 tab_control = ttk.Notebook(root)
 
 main_tab = ttk.Frame(tab_control)
+tab_control.add(main_tab, text='Home')
+
+main_label = tk.Label(main_tab, text="Give magical data analysis a try here! Based on users' chat histories, we'll rank them for you!", wraplength=400, justify="center")
+main_label.grid(row=0, column=0, padx=10, pady=10, columnspan=2, sticky="ew")
+main_tab.columnconfigure(0, weight=1)
+
 ranking_tab = ttk.Frame(tab_control)
+date_ranking_tab = ttk.Frame(tab_control)  
 about_tab = ttk.Frame(tab_control)
 
 tab_control.add(main_tab, text='Home')
 tab_control.add(ranking_tab, text='User Ranking')
+tab_control.add(date_ranking_tab, text='Date Ranking')  
 tab_control.add(about_tab, text='Help')
 
 tab_control.bind("<<NotebookTabChanged>>", on_tab_selected)
 
-main_label = tk.Label(main_tab, text="Give magical data analysis a try here! Based on users' chat histories, we'll rank them for you!", padx=20, pady=20)
-main_label.pack()
+# User Ranking
+user_columns = ('#1', '#2', '#3')
+user_tree = ttk.Treeview(ranking_tab, columns=user_columns, show='headings')
+user_tree.heading('#1', text='Rank')
+user_tree.heading('#2', text='User')
+user_tree.heading('#3', text='Messages')
+user_tree.column('#1', anchor=tk.CENTER, width=100)
+user_tree.column('#2', anchor=tk.W, width=250)
+user_tree.column('#3', anchor=tk.CENTER, width=100)
+user_tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
-canvas = tk.Canvas(main_tab, width=200, height=100, bg="black")
-canvas.pack()
-draw_stars(canvas, 50)
+# Date Ranking
+date_columns = ('#1', '#2', '#3')
+date_tree = ttk.Treeview(date_ranking_tab, columns=date_columns, show='headings')
+date_tree.heading('#1', text='Rank')
+date_tree.heading('#2', text='Date')
+date_tree.heading('#3', text='Messages')
+date_tree.column('#1', anchor=tk.CENTER, width=100)
+date_tree.column('#2', anchor=tk.W, width=250)
+date_tree.column('#3', anchor=tk.CENTER, width=100)
+date_tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
 upload_button = tk.Button(ranking_tab, text="Upload CSV File", command=upload_and_analyze)
 upload_button.pack(pady=10)
-
-columns = ('#1', '#2', '#3')
-tree = ttk.Treeview(ranking_tab, columns=columns, show='headings')
-tree.heading('#1', text='Rank')
-tree.heading('#2', text='User')
-tree.heading('#3', text='Messages')
-tree.column('#1', anchor=tk.CENTER, width=100)
-tree.column('#2', anchor=tk.W, width=250)
-tree.column('#3', anchor=tk.CENTER, width=100)
-tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
 about_label = tk.Label(about_tab, text="For more detailed information, please visit my GitHub. Thank you sincerely for using my program.", padx=20, pady=20)
 about_label.pack()
