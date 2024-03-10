@@ -17,7 +17,7 @@ The DiscordChatAnalyzer project is a very simple program that analyzes chat data
 1. Run the script:
 
 ## features
-1. The program ranks users based on the number of messages they have written in a Discord server, using the chat data.
+1. The program ranks users based on the number of messages <br/>they have written in a Discord server, using the chat data.
 
 ## Refer to
 This project used copyrighted <a href="https://www.freepik.com/free-vector/shiny-golden-number-one-winner-symbol-with-laurel-design-vector_59532937.htm#query=top%201&position=15&from_view=keyword&track=ais&uuid=6996fd75-f789-4e0a-bd84-a1ad9e9b5cab">image files.</a><br/>
