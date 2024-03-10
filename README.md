@@ -15,8 +15,6 @@ The DiscordChatAnalyzer project is a very simple program that analyzes chat data
 
 ## Usage
 1. Run the script:
-2. Click on 'User Ranking'.
-3. Click on 'Upload CSV File' to choose an CSV file.
 
 ## features
 
