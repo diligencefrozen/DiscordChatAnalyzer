@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog, ttk
 import pandas as pd
 import random
+import webbrowser
 
 def upload_and_analyze():
     file_path = filedialog.askopenfilename()
@@ -23,25 +24,34 @@ def draw_stars(canvas, number_of_stars):
         size = random.randint(1, 3)
         canvas.create_oval(x1, y1, x1 + size, y1 + size, fill="white")
 
+def on_tab_selected(event):
+    selected_tab = event.widget.tab(event.widget.select(), "text")
+    if selected_tab == "Help":
+        webbrowser.open('https://github.com/diligencefrozen')
+
 root = tk.Tk()
-root.title("Discord User Ranking Checker")
+root.title("DiscordChatAnalyzer")
 root.geometry("800x600")
 root.iconbitmap('icofile.ico')
 
 tab_control = ttk.Notebook(root)
 
 main_tab = ttk.Frame(tab_control)
-tab_control.add(main_tab, text='Main')
-
 ranking_tab = ttk.Frame(tab_control)
+about_tab = ttk.Frame(tab_control)
+
+tab_control.add(main_tab, text='Home')
 tab_control.add(ranking_tab, text='User Ranking')
+tab_control.add(about_tab, text='Help')
+
+tab_control.bind("<<NotebookTabChanged>>", on_tab_selected)
 
 main_label = tk.Label(main_tab, text="Give magical data analysis a try here! Based on users' chat histories, we'll rank them for you!", padx=20, pady=20)
 main_label.pack()
 
 canvas = tk.Canvas(main_tab, width=200, height=100, bg="black")
 canvas.pack()
-draw_stars(canvas, 50)  
+draw_stars(canvas, 50)
 
 upload_button = tk.Button(ranking_tab, text="Upload CSV File", command=upload_and_analyze)
 upload_button.pack(pady=10)
@@ -56,7 +66,11 @@ tree.column('#2', anchor=tk.W, width=250)
 tree.column('#3', anchor=tk.CENTER, width=100)
 tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
+about_label = tk.Label(about_tab, text="For more detailed information, please visit my GitHub. Thank you sincerely for using my program.", padx=20, pady=20)
+about_label.pack()
+
 tab_control.pack(expand=1, fill="both")
 
-# Run the UI
+tab_control.select(main_tab)
+
 root.mainloop()
